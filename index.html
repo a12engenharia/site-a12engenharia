@@ -830,8 +830,9 @@ const PER_PAGE = 3;
 const TOTAL_PAGES = Math.ceil(projetos.length / PER_PAGE);
 let carTimer;
 
-function svgThumb() {
-  return `<svg class="port-thumb-svg" width="200" height="160" viewBox="0 0 200 160" fill="none">
+function svgThumb(p) {
+  const coverImg = p && p.imgs && p.imgs[0] ? `<img src="${p.imgs[0]}" alt="${p.nome}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85">` : '';
+  return coverImg + `<svg class="port-thumb-svg" style="${p && p.imgs && p.imgs[0] ? 'display:none' : ''}" width="200" height="160" viewBox="0 0 200 160" fill="none">
     <rect x="20" y="20" width="160" height="115" rx="2" stroke="#fff4de" stroke-width="1"/>
     <rect x="45" y="45" width="45" height="55" stroke="#fff4de" stroke-width=".7"/>
     <rect x="110" y="45" width="45" height="55" stroke="#fff4de" stroke-width=".7"/>
@@ -851,7 +852,7 @@ function renderCarousel() {
       <div class="port-card" onclick="openLightbox(${start + i})">
         <div class="port-thumb">
           <div class="port-thumb-grid"></div>
-          ${svgThumb()}
+          ${svgThumb(p)}
           <span class="port-badge">${p.nome}</span>
           <span class="port-3d"><span>3D</span></span>
         </div>
