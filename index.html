@@ -434,54 +434,9 @@ footer{background:#0d1525;border-top:1px solid rgba(206,169,74,.25);padding:36px
         <a href="#portfolio" class="btn-ghost-light">Ver portfólio →</a>
       </div>
     </div>
-    <div class="bim-visual">
-      <div class="bim-card">
-        <div class="bim-card-label">Disciplinas entregues pela A12 Engenharia</div>
-        <div class="bim-svg-wrap">
-          <svg viewBox="0 0 400 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;display:block;">
-            <rect width="400" height="220" fill="#0a1235"/>
-            <g stroke="rgba(255,244,222,0.08)" stroke-width="1">
-              <line x1="0" y1="40" x2="400" y2="40"/><line x1="0" y1="80" x2="400" y2="80"/><line x1="0" y1="120" x2="400" y2="120"/><line x1="0" y1="160" x2="400" y2="160"/><line x1="0" y1="200" x2="400" y2="200"/>
-              <line x1="50" y1="0" x2="50" y2="220"/><line x1="100" y1="0" x2="100" y2="220"/><line x1="150" y1="0" x2="150" y2="220"/><line x1="200" y1="0" x2="200" y2="220"/><line x1="250" y1="0" x2="250" y2="220"/><line x1="300" y1="0" x2="300" y2="220"/><line x1="350" y1="0" x2="350" y2="220"/>
-            </g>
-            <g stroke="rgba(255,244,222,0.35)" stroke-width="1.2" fill="none">
-              <rect x="40" y="30" width="200" height="150" rx="1"/>
-              <rect x="40" y="30" width="90" height="70"/><rect x="130" y="30" width="110" height="70"/>
-              <rect x="40" y="100" width="60" height="80"/><rect x="100" y="100" width="80" height="80"/><rect x="180" y="100" width="60" height="80"/>
-            </g>
-            <g stroke="#4a9eff" stroke-width="1.5" fill="none" stroke-dasharray="4,3">
-              <path d="M60 50 L60 90 L160 90 L160 130 L280 130"/>
-              <circle cx="60" cy="50" r="3" fill="#4a9eff"/><circle cx="280" cy="130" r="3" fill="#4a9eff"/>
-            </g>
-            <g stroke="#ffd700" stroke-width="1.2" fill="none" stroke-dasharray="6,2">
-              <path d="M100 40 L100 70 L200 70 L200 110 L320 110"/>
-              <circle cx="100" cy="40" r="2.5" fill="#ffd700"/><circle cx="320" cy="110" r="2.5" fill="#ffd700"/>
-            </g>
-            <g stroke="rgba(255,138,0,0.7)" stroke-width="2" fill="none">
-              <rect x="45" y="35" width="8" height="8" fill="rgba(255,138,0,0.3)"/><rect x="125" y="35" width="8" height="8" fill="rgba(255,138,0,0.3)"/><rect x="235" y="35" width="8" height="8" fill="rgba(255,138,0,0.3)"/>
-              <rect x="45" y="105" width="8" height="8" fill="rgba(255,138,0,0.3)"/><rect x="125" y="105" width="8" height="8" fill="rgba(255,138,0,0.3)"/><rect x="235" y="105" width="8" height="8" fill="rgba(255,138,0,0.3)"/>
-              <rect x="45" y="170" width="8" height="8" fill="rgba(255,138,0,0.3)"/><rect x="125" y="170" width="8" height="8" fill="rgba(255,138,0,0.3)"/><rect x="235" y="170" width="8" height="8" fill="rgba(255,138,0,0.3)"/>
-            </g>
-            <g font-family="Outfit,sans-serif" font-size="10" fill="rgba(255,244,222,0.5)">
-              <circle cx="270" cy="168" r="3" fill="#4a9eff"/><text x="278" y="172">Hidro</text>
-              <circle cx="270" cy="184" r="3" fill="#ffd700"/><text x="278" y="188">Elétrico</text>
-              <rect x="267" y="196" width="6" height="6" fill="rgba(255,138,0,0.5)"/><text x="278" y="204">Estrutural</text>
-            </g>
-            <text x="300" y="26" font-family="Outfit,sans-serif" font-size="11" font-weight="700" fill="rgba(255,138,0,0.7)" letter-spacing="2">BIM</text>
-          </svg>
-        </div>
-        <div class="bim-chips">
-          <span class="bim-chip">Elétrico BT</span><span class="bim-chip">Hidrossanitário</span><span class="bim-chip">Estrutural</span><span class="bim-chip">HVAC</span><span class="bim-chip">Gás</span><span class="bim-chip">CFTV / VDI</span><span class="bim-chip">Piscinas</span><span class="bim-chip">Modelagem BIM</span>
-        </div>
-        <div class="bim-stats">
-          <div class="bim-stat"><div class="n">BIM</div><div class="l">100% dos projetos</div></div>
-          <div class="bim-stat"><div class="n">24h</div><div class="l">Para proposta</div></div>
-          <div class="bim-stat"><div class="n">BR</div><div class="l">Todo o Brasil</div></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+    <div class="bim-visual" style="padding:0;overflow:hidden;border-radius:16px;border:1px solid rgba(206,169,74,.2)">
+      <img src="images/hero.jpg" alt="Modelo BIM A12 Engenharia — instalações prediais" style="width:100%;height:100%;object-fit:cover;display:block;border-radius:16px">
+    </div></div></section>
 
 
 
@@ -806,7 +761,7 @@ const projetos = [
     loc: 'Jacareí, SP — Sobrado Residencial',
     desc: 'Projeto completo de instalações para residência em condomínio de alto padrão, com HVAC, VDI e sistema de aquecimento solar — coordenação impecável entre todas as disciplinas em BIM.',
     discs: ['Água fria','Água quente solar','Esgoto','Pluvial','HVAC','Elétrico','VDI'],
-    imgs: []
+    imgs: ['images/projeto_alv-1.jpg','images/projeto_alv-2.jpg','images/projeto_alv-3.jpg','images/projeto_alv-4.jpg','images/projeto_alv-5.jpg']
   },
   {
     nome: 'Residência Modelo',
