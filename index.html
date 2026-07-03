@@ -878,11 +878,31 @@ function renderLightbox() {
     ).join('');
   } else { nav.innerHTML = ''; }
   // prev/next projetos
-  document.getElementById('lbPrev').onclick = () => { lbIdx = (lbIdx - 1 + projetos.length) % projetos.length; lbImgIdx=0; renderLightbox(); };
-  document.getElementById('lbNext').onclick = () => { lbIdx = (lbIdx + 1) % projetos.length; lbImgIdx=0; renderLightbox(); };
+  // Setas navegam entre IMAGENS do projeto atual
+  const p2 = projetos[lbIdx];
+  const totalImgs = p2.imgs ? p2.imgs.length : 0;
+  document.getElementById('lbPrev').onclick = () => {
+    if(totalImgs > 1) { lbImgIdx = (lbImgIdx - 1 + totalImgs) % totalImgs; renderLightbox(); }
+  };
+  document.getElementById('lbNext').onclick = () => {
+    if(totalImgs > 1) { lbImgIdx = (lbImgIdx + 1) % totalImgs; renderLightbox(); }
+  };
+  // Mostrar setas só se houver mais de 1 imagem
+  document.getElementById('lbPrev').style.display = totalImgs > 1 ? 'flex' : 'none';
+  document.getElementById('lbNext').style.display = totalImgs > 1 ? 'flex' : 'none';
+
+  // Slideshow automático a cada 3 segundos
+  clearInterval(lbSlider);
+  if(totalImgs > 1) {
+    lbSlider = setInterval(() => {
+      lbImgIdx = (lbImgIdx + 1) % totalImgs;
+      renderLightbox();
+    }, 3000);
+  }
 }
 
-function lbGoImg(i) { lbImgIdx = i; renderLightbox(); }
+let lbSlider;
+function lbGoImg(i) { lbImgIdx = i; clearInterval(lbSlider); renderLightbox(); }
 
 document.getElementById('lbClose').onclick = closeLightbox;
 document.getElementById('lightbox').addEventListener('click', function(e){ if(e.target===this) closeLightbox(); });
@@ -891,6 +911,7 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeLigh
 function closeLightbox() {
   document.getElementById('lightbox').style.display = 'none';
   document.body.style.overflow = '';
+  clearInterval(lbSlider);
 }
 
 // ── NAV HAMBURGUER ────────────────────────────────────────────────────────────
