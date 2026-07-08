@@ -195,21 +195,21 @@ const projetos = [
     loc: 'Minas Gerais',
     desc: 'Projeto completo de instalações para a guarita do Condomínio Reserva Toscana — água fria, esgoto sanitário, pluvial, elétrico e VDI, coordenados em BIM.',
     discs: ['Água fria','Esgoto','Pluvial','Elétrico','VDI'],
-    imgs: ['images/projeto-tsc-1.jpg','images/projeto-tsc-2.jpg']
+    imgs: [], emConstrucao: true
   },
   {
     nome: 'Cond. Reserva Toscana — Academia e Administrativo',
     loc: 'Minas Gerais',
     desc: 'Instalações completas para academia e área administrativa do Condomínio Reserva Toscana — água fria, esgoto sanitário, pluvial, elétrico e VDI, entregues em BIM.',
     discs: ['Água fria','Esgoto','Pluvial','Elétrico','VDI'],
-    imgs: ['images/projeto-tsc-3.jpg','images/projeto-tsc-4.jpg','images/projeto-tsc-5.jpg']
+    imgs: [], emConstrucao: true
   },
   {
     nome: 'Cond. Reserva Toscana — Área de Lazer',
     loc: 'Minas Gerais',
     desc: 'Projeto completo da área de lazer do Condomínio Reserva Toscana — 5 cozinhas gourmet, salão de festas, spa e salão de jogos. Água fria, esgoto, pluvial, elétrico e VDI coordenados em BIM.',
     discs: ['Água fria','Esgoto','Pluvial','Elétrico','VDI','5 Gourmet','Salão de festas','Spa'],
-    imgs: ['images/projeto-tsc-6.jpg','images/projeto-tsc-7.jpg']
+    imgs: [], emConstrucao: true
   },
   {
     nome: 'Residência AS',
@@ -281,6 +281,59 @@ const PER_PAGE = 3;
 let carTimer;
 
 // Apenas projetos com imagem na home
+const projetosComImagem = projetos.filter(p => p.imgs && p.imgs.length > 0);
+const TOTAL_PAGES = Math.ceil(projetosComImagem.length / PER_PAGE);
+
+function svgThumb(p) {
+  if(p.emConstrucao) {
+    return `<div class="port-thumb-em-construcao">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      <span>Em breve</span>
+    </div>`;
+  }
+  const coverImg = p.imgs && p.imgs[0] ? `<img src="${p.imgs[0]}" alt="${p.nome}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85">` : '';
+  return coverImg + `<svg class="port-thumb-svg" style="${p.imgs && p.imgs[0] ? 'display:none' : ''}" width="200" height="160" viewBox="0 0 200 160" fill="none">
+    <rect x="20" y="20" width="160" height="115" rx="2" stroke="#fff4de" stroke-width="1"/>
+    <rect x="45" y="45" width="45" height="55" stroke="#fff4de" stroke-width=".7"/>
+    <rect x="110" y="45" width="45" height="55" stroke="#fff4de" stroke-width=".7"/>
+    <circle cx="100" cy="120" r="13" stroke="#ff8a00" stroke-width=".8"/>
+  </svg>`;
+}
+
+function renderCarousel() {
+  const grid = document.getElementById('portGrid');
+  const start = carPage * PER_PAGE;
+  const slice = projetosComImagem.slice(start, start + PER_PAGE);
+
+  grid.style.opacity = '0';
+  setTimeout(() => {
+    grid.innerHTML = slice.map((p, i) => {
+      const idxGlobal = projetos.indexOf(p);
+      return `
+      <div class="port-card" onclick="openLightbox(${idxGlobal})">
+        <div class="port-thumb">
+          <div class="port-thumb-grid"></div>
+          ${svgThumb(p)}
+          <span class="port-badge">${p.nome}</span>
+          <span class="port-3d"><span>3D</span></span>
+        </div>
+        <div class="port-body">
+          <div class="port-loc">${p.loc}</div>
+          <div class="port-discs">${p.discs.map(d=>`<span class="port-disc">${d}</span>`).join('')}</div>
+        </div>
+      </div>`;
+    }).join('');
+    grid.style.opacity = '1';
+  }, 300);
+}
+
+function nextCarPage() {
+  carPage = (carPage + 1) % TOTAL_PAGES;
+  renderCarousel();
+}
+
+renderCarousel();
+carTimer = setInterval(nextCarPage, 6000);
 
 // Renderizar todos os projetos
 document.getElementById('portGridFull').innerHTML = projetos.map((p, i) => {
