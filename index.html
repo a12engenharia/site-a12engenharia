@@ -359,6 +359,11 @@ footer{background:#0d1525;border-top:1px solid rgba(206,169,74,.25);padding:36px
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease}
 .reveal.visible{opacity:1;transform:none}
 
+
+/* TARJA EM CONSTRUÇÃO */
+.port-thumb-em-construcao{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:rgba(13,21,37,.85)}
+.port-thumb-em-construcao svg{width:32px;height:32px;stroke:var(--gold);opacity:.7}
+.port-thumb-em-construcao span{font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);opacity:.8}
 /* SERVIÇOS — ícone */
 .srv-icon{width:36px;height:36px;stroke:var(--orange);margin-bottom:14px;flex-shrink:0}
 .srv-num{display:none}
@@ -545,7 +550,7 @@ footer{background:#0d1525;border-top:1px solid rgba(206,169,74,.25);padding:36px
     <div class="atu-inner">
       <div class="atu-card reveal">
         <div class="atu-card-label">Estados com projetos entregues</div>
-        <div class="estados-list"><span class="estado-tag">Minas Gerais</span><span class="estado-tag">São Paulo</span><span class="estado-tag">Santa Catarina</span><span class="estado-tag">Pernambuco</span><span class="estado-tag">Bahia</span><span class="estado-tag">Rio de Janeiro</span><span class="estado-tag">Pará</span></div>
+        <div class="estados-list"><span class="estado-tag">São Paulo</span><span class="estado-tag">Minas Gerais</span><span class="estado-tag">Santa Catarina</span><span class="estado-tag">Pará</span><span class="estado-tag">Pernambuco</span><span class="estado-tag">Bahia</span></div>
         <p class="atu-note">Atendimento em todo o território nacional</p>
         <div class="atu-stats">
           <div class="atu-stat"><div class="n">2020</div><div class="l">Fundação da A12</div></div>
@@ -736,11 +741,25 @@ footer{background:#0d1525;border-top:1px solid rgba(206,169,74,.25);padding:36px
 // ── DADOS DOS PROJETOS ────────────────────────────────────────────────────────
 const projetos = [
   {
+    nome: 'Residência JC',
+    loc: 'Faxinal dos Guedes, SC',
+    desc: 'Residência com projeto hidrossanitário completo — água fria, água quente com aquecedor elétrico, pluvial e esgoto — com infraestrutura prevista para instalação futura de boiler e placas solares. Elétrico, VDI e HVAC entregues em BIM.',
+    discs: ['Água fria','Água quente elétrica','Infra solar futura','Esgoto','Pluvial','Elétrico','VDI','HVAC'],
+    imgs: ['images/projeto-jc-1.jpg','images/projeto-jc-2.jpg','images/projeto-jc-3.jpg','images/projeto-jc-4.jpg','images/projeto-jc-5.jpg','images/projeto-jc-6.jpg','images/projeto-jc-7.jpg']
+  },
+  {
     nome: 'Casa de Fazenda',
     loc: 'São José dos Campos, SP',
     desc: 'Projeto completo de sobrado residencial — da arquitetura ao projeto legal, estrutura, fundações e todas as instalações. Um dos projetos mais completos já entregues pela A12, com escopo integral em BIM.',
     discs: ['Arquitetura','Projeto Legal','Estrutural','Fundações','Água fria','Esgoto','Pluvial','Elétrico','VDI','HVAC'],
     imgs: ['images/projeto-cf-1.jpg','images/projeto-cf-2.jpg','images/projeto-cf-3.jpg','images/projeto-cf-4.jpg','images/projeto-cf-5.jpg','images/projeto-cf-6.jpg','images/projeto-cf-7.jpg','images/projeto-cf-8.jpg','images/projeto-cf-9.jpg','images/projeto-cf-10.jpg','images/projeto-cf-11.jpg','images/projeto-cf-12.jpg','images/projeto-cf-13.jpg','images/projeto-cf-14.jpg']
+  },
+  {
+    nome: 'Residência VP',
+    loc: 'Paraibuna, SP — Quinta dos Lagos',
+    desc: 'Residência de alto padrão com piscina de borda infinita aquecida com hidromassagem, reaproveitamento de água da chuva, tratamento de esgoto na própria edificação e sistema solar integrado. Todo o sistema de distribuição de água fria e quente é pressurizado. Entregue em BIM sem interferências.',
+    discs: ['Elétrico','VDI','CFTV','Água fria/quente pressurizada','Solar','Piscina borda infinita','Hidromassagem','Esgoto','Pluvial','HVAC'],
+    imgs: ['images/projeto-vp-1.jpg','images/projeto-vp-2.jpg','images/projeto-vp-3.jpg','images/projeto-vp-4.jpg','images/projeto-vp-5.jpg']
   },
   {
     nome: 'Residência PM',
@@ -750,46 +769,11 @@ const projetos = [
     imgs: ['images/projeto-pm-1.jpg','images/projeto-pm-2.jpg','images/projeto-pm-3.jpg','images/projeto-pm-4.jpg','images/projeto-pm-5.jpg','images/projeto-pm-6.jpg','images/projeto-pm-7.jpg']
   },
   {
-    nome: 'Residência VP',
-    loc: 'Paraibuna, SP — Quinta dos Lagos',
-    desc: 'Uma residência de alto padrão que exigiu o máximo em coordenação — piscina de borda infinita aquecida, reaproveitamento de água da chuva, tratamento de esgoto na própria edificação e sistema solar integrado, tudo modelado em BIM e entregue sem conflitos.',
-    discs: ['Elétrico','VDI','CFTV','Água fria/quente','Solar','Piscina borda infinita','Esgoto','Pluvial','HVAC'],
-    imgs: ['images/projeto-vp-1.jpg','images/projeto-vp-2.jpg','images/projeto-vp-3.jpg','images/projeto-vp-4.jpg','images/projeto-vp-5.jpg']
-  },
-  {
-    nome: 'Residência Álvaro',
-    loc: 'Jacareí, SP — Sobrado Residencial',
-    desc: 'Projeto completo de instalações para residência em condomínio de alto padrão, com HVAC, VDI e sistema de aquecimento solar — coordenação impecável entre todas as disciplinas em BIM.',
+    nome: 'Residência AP',
+    loc: 'Jacareí, SP',
+    desc: 'Projeto completo de instalações para residência de alto padrão, com HVAC, VDI e sistema de aquecimento solar — coordenação impecável entre todas as disciplinas em BIM.',
     discs: ['Água fria','Água quente solar','Esgoto','Pluvial','HVAC','Elétrico','VDI'],
     imgs: ['images/projeto_alv-1.jpg','images/projeto_alv-2.jpg','images/projeto_alv-3.jpg','images/projeto_alv-4.jpg','images/projeto_alv-5.jpg']
-  },
-  {
-    nome: 'Residencial Toscana',
-    loc: 'Minas Gerais — Cond. Toscana',
-    desc: 'Projetos das áreas comuns de um condomínio de alto padrão — guarita, academia, área administrativa e lazer — com captação pluvial em laje e drenagem de ar condicionado integradas ao BIM.',
-    discs: ['Água fria','Esgoto','Pluvial','Drenagem A/C','Captação pluvial em laje','Elétrico','VDI'],
-    imgs: ['images/projeto-tsc-1.jpg','images/projeto-tsc-2.jpg','images/projeto-tsc-3.jpg','images/projeto-tsc-4.jpg','images/projeto-tsc-5.jpg','images/projeto-tsc-6.jpg','images/projeto-tsc-7.jpg']
-  },
-  {
-    nome: 'Residência JB',
-    loc: 'Paraibuna, SP — Quinta dos Lagos',
-    desc: 'Instalações completas com piscina de borda infinita aquecida e sistema de tratamento de esgoto integrado ao modelo BIM — entrega limpa, sem interferências e pronta para a obra.',
-    discs: ['Elétrico','VDI','Água fria/quente','Solar + boiler','Piscina borda infinita','Tratamento de esgoto','HVAC'],
-    imgs: []
-  },
-  {
-    nome: 'Residência CC',
-    loc: 'Paraibuna, SP — Quinta dos Lagos',
-    desc: 'Piscina convencional aquecida, aquecimento solar com suporte a boiler elétrico e tratamento de esgoto — soluções pensadas para conforto e eficiência, coordenadas em BIM do início ao fim.',
-    discs: ['Elétrico','VDI','Água fria/quente','Solar + boiler','Piscina aquecida','Esgoto','HVAC'],
-    imgs: []
-  },
-  {
-    nome: 'Residência JC',
-    loc: 'Faxinal dos Guedes, SC',
-    desc: 'Residência com projeto hidrossanitário completo — água fria, água quente com aquecedor elétrico, pluvial e esgoto — com infraestrutura prevista para instalação futura de boiler e placas solares. Elétrico, VDI e HVAC entregues em BIM.',
-    discs: ['Água fria','Água quente elétrica','Infra solar futura','Esgoto','Pluvial','Elétrico','VDI','HVAC'],
-    imgs: ['images/projeto-jc-1.jpg','images/projeto-jc-2.jpg','images/projeto-jc-3.jpg','images/projeto-jc-4.jpg','images/projeto-jc-5.jpg','images/projeto-jc-6.jpg','images/projeto-jc-7.jpg']
   },
   {
     nome: 'Residência HT',
@@ -799,14 +783,90 @@ const projetos = [
     imgs: ['images/projeto-ht-1.jpg','images/projeto-ht-2.jpg','images/projeto-ht-3.jpg','images/projeto-ht-4.jpg','images/projeto-ht-5.jpg','images/projeto-ht-6.jpg','images/projeto-ht-7.jpg','images/projeto-ht-8.jpg','images/projeto-ht-9.jpg','images/projeto-ht-10.jpg','images/projeto-ht-11.jpg']
   },
   {
+    nome: 'Cond. Reserva Toscana — Guarita',
+    loc: 'Minas Gerais',
+    desc: 'Projeto completo de instalações para a guarita do Condomínio Reserva Toscana — água fria, esgoto sanitário, pluvial, elétrico e VDI, coordenados em BIM.',
+    discs: ['Água fria','Esgoto','Pluvial','Elétrico','VDI'],
+    imgs: ['images/projeto-tsc-1.jpg','images/projeto-tsc-2.jpg']
+  },
+  {
+    nome: 'Cond. Reserva Toscana — Academia e Administrativo',
+    loc: 'Minas Gerais',
+    desc: 'Instalações completas para academia e área administrativa do Condomínio Reserva Toscana — água fria, esgoto sanitário, pluvial, elétrico e VDI, entregues em BIM.',
+    discs: ['Água fria','Esgoto','Pluvial','Elétrico','VDI'],
+    imgs: ['images/projeto-tsc-3.jpg','images/projeto-tsc-4.jpg','images/projeto-tsc-5.jpg']
+  },
+  {
+    nome: 'Cond. Reserva Toscana — Área de Lazer',
+    loc: 'Minas Gerais',
+    desc: 'Projeto completo da área de lazer do Condomínio Reserva Toscana — 5 cozinhas gourmet, salão de festas, spa e salão de jogos. Água fria, esgoto, pluvial, elétrico e VDI coordenados em BIM.',
+    discs: ['Água fria','Esgoto','Pluvial','Elétrico','VDI','5 Gourmet','Salão de festas','Spa'],
+    imgs: ['images/projeto-tsc-6.jpg','images/projeto-tsc-7.jpg']
+  },
+  {
     nome: 'Residência AS',
     loc: 'Ipirá, BA',
     desc: 'Residência com projeto estrutural e fundações em concreto armado, instalações hidrossanitárias com rede de água fria pressurizada, projeto elétrico e VDI — entregues com precisão técnica em BIM.',
     discs: ['Estrutural','Fundações','Água fria pressurizada','Esgoto','Pluvial','Elétrico','VDI'],
     imgs: ['images/projeto-as-1.jpg','images/projeto-as-2.jpg','images/projeto-as-3.jpg','images/projeto-as-4.jpg','images/projeto-as-5.jpg','images/projeto-as-6.jpg']
+  },
+  {
+    nome: 'Residência JB',
+    loc: 'Paraibuna, SP — Quinta dos Lagos',
+    desc: 'Residência de alto padrão com piscina de borda infinita aquecida com hidromassagem. Todo o sistema de distribuição de água fria e quente é pressurizado. Tratamento de esgoto integrado ao modelo BIM.',
+    discs: ['Elétrico','VDI','Água fria/quente pressurizada','Solar + boiler','Piscina borda infinita','Hidromassagem','Tratamento de esgoto','HVAC'],
+    imgs: [], emConstrucao: true
+  },
+  {
+    nome: 'Residência CC',
+    loc: 'Paraibuna, SP — Quinta dos Lagos',
+    desc: 'Piscina convencional aquecida com hidromassagem. Todo o sistema de distribuição de água fria e quente é pressurizado, com aquecimento solar e suporte a boiler elétrico — coordenados em BIM.',
+    discs: ['Elétrico','VDI','Água fria/quente pressurizada','Solar + boiler','Piscina aquecida','Hidromassagem','Esgoto','HVAC'],
+    imgs: [], emConstrucao: true
+  },
+  {
+    nome: 'Residência VR',
+    loc: 'Jacareí, SP',
+    desc: 'Projeto residencial completo com arquitetura, projeto legal para prefeitura, estrutura e fundações em concreto armado e instalações hidrossanitárias — todas as disciplinas entregues em BIM.',
+    discs: ['Arquitetura','Projeto Legal','Estrutural','Fundações','Água fria','Esgoto','Pluvial'],
+    imgs: [], emConstrucao: true
+  },
+  {
+    nome: 'Residência JV',
+    loc: 'São José dos Campos, SP — Cond. Mantiqueira',
+    desc: 'Residência em condomínio de alto padrão com projeto hidrossanitário completo — água fria, água quente com aquecimento solar e reserva em boiler, esgoto e pluvial — além de HVAC e VDI entregues em BIM.',
+    discs: ['Água fria','Água quente solar','Boiler','Esgoto','Pluvial','HVAC','VDI'],
+    imgs: [], emConstrucao: true
+  },
+  {
+    nome: 'Casa do Alto',
+    loc: 'São José dos Campos, SP',
+    desc: 'Projeto residencial rústico com escopo completo — arquitetura, projeto legal, fundações em concreto armado, instalações hidrossanitárias com aquecimento solar e boiler, elétrico e VDI — tudo em BIM.',
+    discs: ['Arquitetura','Projeto Legal','Fundações','Água fria','Água quente solar','Boiler','Esgoto','Pluvial','Elétrico','VDI'],
+    imgs: [], emConstrucao: true
+  },
+  {
+    nome: 'Fábrica Michelin',
+    loc: 'Guarulhos, SP',
+    desc: 'Projeto comercial/industrial para unidade da Michelin em Guarulhos — elétrico, VDI e HVAC coordenados e entregues em BIM.',
+    discs: ['Elétrico','VDI','HVAC'],
+    imgs: [], emConstrucao: true
+  },
+  {
+    nome: 'Projeto RR — Piscina e Gourmet',
+    loc: 'Paraibuna, SP',
+    desc: 'Projeto de piscina de borda infinita com aquecimento elétrico e hidromassagem, elétrico da piscina e instalações hidrossanitárias da cozinha gourmet — água fria, quente, esgoto e pluvial.',
+    discs: ['Piscina borda infinita','Aquecimento elétrico','Hidromassagem','Elétrico','Água fria/quente','Esgoto','Pluvial'],
+    imgs: [], emConstrucao: true
+  },
+  {
+    nome: 'Projeto LP — Sala Comercial',
+    loc: 'Recife, PE',
+    desc: 'Projeto comercial para sala em edifício — adequação hidrossanitária, elétrico, VDI, sonorização e PPCI junto ao corpo de bombeiros.',
+    discs: ['Hidrossanitário','Elétrico','VDI','Sonorização','PPCI'],
+    imgs: [], emConstrucao: true
   }
 ];
-
 // ── CARROSSEL ─────────────────────────────────────────────────────────────────
 let carPage = 0;
 const PER_PAGE = 3;
@@ -814,6 +874,12 @@ const TOTAL_PAGES = Math.ceil(projetos.length / PER_PAGE);
 let carTimer;
 
 function svgThumb(p) {
+  if(p.emConstrucao) {
+    return `<div class="port-thumb-em-construcao">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      <span>Em breve</span>
+    </div>`;
+  }
   const coverImg = p && p.imgs && p.imgs[0] ? `<img src="${p.imgs[0]}" alt="${p.nome}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85">` : '';
   return coverImg + `<svg class="port-thumb-svg" style="${p && p.imgs && p.imgs[0] ? 'display:none' : ''}" width="200" height="160" viewBox="0 0 200 160" fill="none">
     <rect x="20" y="20" width="160" height="115" rx="2" stroke="#fff4de" stroke-width="1"/>
@@ -907,31 +973,11 @@ function renderLightbox() {
     ).join('');
   } else { nav.innerHTML = ''; }
   // prev/next projetos
-  // Setas navegam entre IMAGENS do projeto atual
-  const p2 = projetos[lbIdx];
-  const totalImgs = p2.imgs ? p2.imgs.length : 0;
-  document.getElementById('lbPrev').onclick = () => {
-    if(totalImgs > 1) { lbImgIdx = (lbImgIdx - 1 + totalImgs) % totalImgs; renderLightbox(); }
-  };
-  document.getElementById('lbNext').onclick = () => {
-    if(totalImgs > 1) { lbImgIdx = (lbImgIdx + 1) % totalImgs; renderLightbox(); }
-  };
-  // Mostrar setas só se houver mais de 1 imagem
-  document.getElementById('lbPrev').style.display = totalImgs > 1 ? 'flex' : 'none';
-  document.getElementById('lbNext').style.display = totalImgs > 1 ? 'flex' : 'none';
-
-  // Slideshow automático a cada 3 segundos
-  clearInterval(lbSlider);
-  if(totalImgs > 1) {
-    lbSlider = setInterval(() => {
-      lbImgIdx = (lbImgIdx + 1) % totalImgs;
-      renderLightbox();
-    }, 3000);
-  }
+  document.getElementById('lbPrev').onclick = () => { lbIdx = (lbIdx - 1 + projetos.length) % projetos.length; lbImgIdx=0; renderLightbox(); };
+  document.getElementById('lbNext').onclick = () => { lbIdx = (lbIdx + 1) % projetos.length; lbImgIdx=0; renderLightbox(); };
 }
 
-let lbSlider;
-function lbGoImg(i) { lbImgIdx = i; clearInterval(lbSlider); renderLightbox(); }
+function lbGoImg(i) { lbImgIdx = i; renderLightbox(); }
 
 document.getElementById('lbClose').onclick = closeLightbox;
 document.getElementById('lightbox').addEventListener('click', function(e){ if(e.target===this) closeLightbox(); });
@@ -940,7 +986,6 @@ document.addEventListener('keydown', function(e){ if(e.key==='Escape') closeLigh
 function closeLightbox() {
   document.getElementById('lightbox').style.display = 'none';
   document.body.style.overflow = '';
-  clearInterval(lbSlider);
 }
 
 // ── NAV HAMBURGUER ────────────────────────────────────────────────────────────
