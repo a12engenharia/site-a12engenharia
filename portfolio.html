@@ -253,8 +253,8 @@ const projetos = [
   }
 ];
 
-// Extrair estado da localização
-function getEstado(loc) {
+// Ordenar por estado alfabético, com imagem primeiro dentro de cada estado
+function getEstadoSigla(loc) {
   var map = {'BA':'Bahia','MG':'Minas Gerais','PA':'Pará','PE':'Pernambuco','RJ':'Rio de Janeiro','SC':'Santa Catarina','SP':'São Paulo'};
   for (var uf in map) {
     if (loc.indexOf(', ' + uf) !== -1 || loc.indexOf(map[uf]) !== -1) return map[uf];
@@ -262,50 +262,36 @@ function getEstado(loc) {
   return 'Outros';
 }
 
-// Agrupar por estado, com imagem primeiro
-var estados = {'Bahia':[],'Minas Gerais':[],'Pará':[],'Pernambuco':[],'Rio de Janeiro':[],'Santa Catarina':[],'São Paulo':[],'Outros':[]};
-projetos.forEach(function(p, i) {
-  var est = getEstado(p.loc);
-  if (!estados[est]) estados[est] = [];
-  estados[est].push({p: p, i: i});
+var indexados = projetos.map(function(p, i) { return {p: p, i: i, est: getEstadoSigla(p.loc)}; });
+indexados.sort(function(a, b) {
+  if (a.est < b.est) return -1;
+  if (a.est > b.est) return 1;
+  var aHas = a.p.imgs && a.p.imgs.length > 0 ? 0 : 1;
+  var bHas = b.p.imgs && b.p.imgs.length > 0 ? 0 : 1;
+  return aHas - bHas;
 });
 
-// Ordenar dentro de cada estado: com imagem primeiro
-Object.keys(estados).forEach(function(est) {
-  estados[est].sort(function(a, b) {
-    var aHas = a.p.imgs && a.p.imgs.length > 0 ? 0 : 1;
-    var bHas = b.p.imgs && b.p.imgs.length > 0 ? 0 : 1;
-    return aHas - bHas;
-  });
-});
-
-// Renderizar
 var wrap = document.getElementById('portWrap');
-var html = '';
-var ordem = ['Bahia','Minas Gerais','Pará','Pernambuco','Rio de Janeiro','Santa Catarina','São Paulo'];
-ordem.forEach(function(est) {
-  if (!estados[est] || estados[est].length === 0) return;
-  html += '<div class="estado-label">' + est + '</div><div class="port-grid-full">';
-  estados[est].forEach(function(item) {
-    var p = item.p, i = item.i;
-    var thumb;
-    if (p.emConstrucao) {
-      thumb = '<div class="proj-em-construcao"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>Em breve</span></div>';
-    } else if (p.imgs && p.imgs[0]) {
-      thumb = '<img src="' + p.imgs[0] + '" alt="' + p.nome + '">';
-    } else {
-      thumb = '';
-    }
-    html += '<div class="proj-card" onclick="openLightbox(' + i + ')">' +
-      '<div class="proj-thumb">' + thumb + '<span class="proj-badge">' + p.nome + '</span></div>' +
-      '<div class="proj-body">' +
-      '<div class="proj-loc">' + p.loc + '</div>' +
-      '<p class="proj-desc">' + p.desc + '</p>' +
-      '<div class="proj-discs">' + p.discs.map(function(d){ return '<span class="proj-disc">' + d + '</span>'; }).join('') + '</div>' +
-      '</div></div>';
-  });
-  html += '</div>';
+var html = '<div class="port-grid-full">';
+indexados.forEach(function(item) {
+  var p = item.p, i = item.i;
+  var thumb;
+  if (p.emConstrucao) {
+    thumb = '<div class="proj-em-construcao"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>Em breve</span></div>';
+  } else if (p.imgs && p.imgs[0]) {
+    thumb = '<img src="' + p.imgs[0] + '" alt="' + p.nome + '">';
+  } else {
+    thumb = '';
+  }
+  html += '<div class="proj-card" onclick="openLightbox(' + i + ')">' +
+    '<div class="proj-thumb">' + thumb + '<span class="proj-badge">' + p.nome + '</span></div>' +
+    '<div class="proj-body">' +
+    '<div class="proj-loc">' + p.loc + '</div>' +
+    '<p class="proj-desc">' + p.desc + '</p>' +
+    '<div class="proj-discs">' + p.discs.map(function(d){ return '<span class="proj-disc">' + d + '</span>'; }).join('') + '</div>' +
+    '</div></div>';
 });
+html += '</div>';
 wrap.innerHTML = html;
 
 // LIGHTBOX
