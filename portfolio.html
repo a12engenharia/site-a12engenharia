@@ -253,7 +253,7 @@ const projetos = [
   }
 ];
 
-// Ordenar por estado alfabético, com imagem primeiro dentro de cada estado
+// Separar projetos com e sem imagem
 function getEstadoSigla(loc) {
   var map = {'BA':'Bahia','MG':'Minas Gerais','PA':'Pará','PE':'Pernambuco','RJ':'Rio de Janeiro','SC':'Santa Catarina','SP':'São Paulo'};
   for (var uf in map) {
@@ -262,18 +262,30 @@ function getEstadoSigla(loc) {
   return 'Outros';
 }
 
-var indexados = projetos.map(function(p, i) { return {p: p, i: i, est: getEstadoSigla(p.loc)}; });
-indexados.sort(function(a, b) {
-  if (a.est < b.est) return -1;
-  if (a.est > b.est) return 1;
-  var aHas = a.p.imgs && a.p.imgs.length > 0 ? 0 : 1;
-  var bHas = b.p.imgs && b.p.imgs.length > 0 ? 0 : 1;
-  return aHas - bHas;
+var comImagem = [], semImagem = [];
+projetos.forEach(function(p, i) {
+  if (p.imgs && p.imgs.length > 0) {
+    comImagem.push({p: p, i: i, est: getEstadoSigla(p.loc)});
+  } else {
+    semImagem.push({p: p, i: i, est: getEstadoSigla(p.loc)});
+  }
 });
 
-var wrap = document.getElementById('portWrap');
-var html = '<div class="port-grid-full">';
-indexados.forEach(function(item) {
+// Ordenar com imagem por estado alfabético
+comImagem.sort(function(a, b) {
+  if (a.est < b.est) return -1;
+  if (a.est > b.est) return 1;
+  return 0;
+});
+
+// Ordenar sem imagem por estado alfabético também
+semImagem.sort(function(a, b) {
+  if (a.est < b.est) return -1;
+  if (a.est > b.est) return 1;
+  return 0;
+});
+
+function renderCard(item) {
   var p = item.p, i = item.i;
   var thumb;
   if (p.emConstrucao) {
@@ -283,14 +295,19 @@ indexados.forEach(function(item) {
   } else {
     thumb = '';
   }
-  html += '<div class="proj-card" onclick="openLightbox(' + i + ')">' +
+  return '<div class="proj-card" onclick="openLightbox(' + i + ')">' +
     '<div class="proj-thumb">' + thumb + '<span class="proj-badge">' + p.nome + '</span></div>' +
     '<div class="proj-body">' +
     '<div class="proj-loc">' + p.loc + '</div>' +
     '<p class="proj-desc">' + p.desc + '</p>' +
     '<div class="proj-discs">' + p.discs.map(function(d){ return '<span class="proj-disc">' + d + '</span>'; }).join('') + '</div>' +
     '</div></div>';
-});
+}
+
+var wrap = document.getElementById('portWrap');
+var html = '<div class="port-grid-full">';
+comImagem.forEach(function(item) { html += renderCard(item); });
+semImagem.forEach(function(item) { html += renderCard(item); });
 html += '</div>';
 wrap.innerHTML = html;
 
