@@ -47,7 +47,10 @@ nav ul a:hover{color:var(--gold)}
 .port-back:hover{color:var(--white)}
 .port-section{padding:60px 6% 80px}
 .port-wrap{max-width:1200px;margin:0 auto}
-.port-grid-full{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.estado-label{font-size:13px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin:40px 0 16px;display:flex;align-items:center;gap:10px}
+.estado-label::before{content:'';width:20px;height:2px;background:var(--gold);border-radius:1px}
+.estado-label:first-child{margin-top:0}
+.port-grid-full{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:8px}
 .proj-card{background:var(--bege);border:1px solid rgba(206,169,74,.15);border-radius:14px;overflow:hidden;transition:box-shadow .25s,transform .2s;cursor:pointer}
 .proj-card:hover{box-shadow:0 8px 40px rgba(0,0,0,.3);transform:translateY(-3px)}
 .proj-thumb{height:220px;background:var(--navy2);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
@@ -66,8 +69,8 @@ nav ul a:hover{color:var(--gold)}
 #lbPrev,#lbNext{position:absolute;top:50%;transform:translateY(-50%);background:rgba(255,244,222,.1);border:1px solid rgba(255,244,222,.2);color:#fff;width:44px;height:44px;border-radius:50%;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center}
 #lbPrev{left:20px}#lbNext{right:20px}
 .lb-inner{max-width:900px;width:90%;text-align:center}
-#lbImg{width:100%;height:520px;background:rgba(255,244,222,.04);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;overflow:hidden;position:relative}
-#lbImg img{width:100%;height:100%;object-fit:cover}
+#lbImg{width:100%;height:520px;background:rgba(255,244,222,.04);border-radius:12px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;overflow:hidden}
+#lbImg img{width:100%;height:100%;object-fit:cover;display:none}
 .wpp{position:fixed;bottom:28px;right:28px;z-index:999;display:flex;align-items:center;gap:10px;background:#25d366;color:#fff;padding:14px 24px;border-radius:100px;font-size:15px;font-weight:600;text-decoration:none;box-shadow:0 4px 20px rgba(37,211,102,.45);transition:transform .2s}
 .wpp:hover{transform:translateY(-2px)}
 .wpp svg{width:22px;height:22px;fill:#fff}
@@ -103,9 +106,7 @@ nav ul a:hover{color:var(--gold)}
 </div>
 
 <section class="port-section">
-  <div class="port-wrap">
-    <div class="port-grid-full" id="portGridFull"></div>
-  </div>
+  <div class="port-wrap" id="portWrap"></div>
 </section>
 
 <div id="lightbox">
@@ -113,7 +114,7 @@ nav ul a:hover{color:var(--gold)}
   <button id="lbPrev">‹</button>
   <button id="lbNext">›</button>
   <div class="lb-inner">
-    <div id="lbImg"><img id="lbImgEl" src="" alt="" style="display:none"><svg id="lbPh" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(255,244,222,.2)" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
+    <div id="lbImg"><img id="lbImgEl" src="" alt=""><svg id="lbPh" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="rgba(255,244,222,.2)" stroke-width="1"><rect x="3" y="3" width="18" height="18" rx="2"/></svg></div>
     <div id="lbTitle" style="font-size:18px;font-weight:700;color:#fff;margin-bottom:6px"></div>
     <div id="lbLoc" style="font-size:13px;color:rgba(255,244,222,.5);margin-bottom:10px"></div>
     <div id="lbDesc" style="font-size:15px;color:rgba(255,244,222,.65);line-height:1.75;max-width:660px;margin:0 auto 14px"></div>
@@ -125,46 +126,11 @@ nav ul a:hover{color:var(--gold)}
 <script>
 const projetos = [
   {
-    nome: 'Residência JC',
-    loc: 'Faxinal dos Guedes, SC',
-    desc: 'Residência com projeto hidrossanitário completo — água fria, água quente com aquecedor elétrico, pluvial e esgoto — com infraestrutura prevista para instalação futura de boiler e placas solares. Elétrico, VDI e HVAC entregues em BIM.',
-    discs: ['Água fria','Água quente elétrica','Infra solar futura','Esgoto','Pluvial','Elétrico','VDI','HVAC'],
-    imgs: ['images/projeto-jc-1.jpg','images/projeto-jc-2.jpg','images/projeto-jc-3.jpg','images/projeto-jc-4.jpg','images/projeto-jc-5.jpg','images/projeto-jc-6.jpg','images/projeto-jc-7.jpg']
-  },
-  {
-    nome: 'Casa de Fazenda',
-    loc: 'São José dos Campos, SP',
-    desc: 'Projeto completo de sobrado residencial — da arquitetura ao projeto legal, estrutura, fundações e todas as instalações. Um dos projetos mais completos já entregues pela A12, com escopo integral em BIM.',
-    discs: ['Arquitetura','Projeto Legal','Estrutural','Fundações','Água fria','Esgoto','Pluvial','Elétrico','VDI','HVAC'],
-    imgs: ['images/projeto-cf-1.jpg','images/projeto-cf-2.jpg','images/projeto-cf-3.jpg','images/projeto-cf-4.jpg','images/projeto-cf-5.jpg','images/projeto-cf-6.jpg','images/projeto-cf-7.jpg','images/projeto-cf-8.jpg','images/projeto-cf-9.jpg','images/projeto-cf-10.jpg','images/projeto-cf-11.jpg','images/projeto-cf-12.jpg','images/projeto-cf-13.jpg','images/projeto-cf-14.jpg']
-  },
-  {
-    nome: 'Residência VP',
-    loc: 'Paraibuna, SP — Quinta dos Lagos',
-    desc: 'Residência de alto padrão com piscina de borda infinita aquecida com hidromassagem, reaproveitamento de água da chuva, tratamento de esgoto na própria edificação e sistema solar integrado. Todo o sistema de distribuição de água fria e quente é pressurizado. Entregue em BIM sem interferências.',
-    discs: ['Elétrico','VDI','CFTV','Água fria/quente pressurizada','Solar','Piscina borda infinita','Hidromassagem','Esgoto','Pluvial','HVAC'],
-    imgs: ['images/projeto-vp-1.jpg','images/projeto-vp-2.jpg','images/projeto-vp-3.jpg','images/projeto-vp-4.jpg','images/projeto-vp-5.jpg']
-  },
-  {
-    nome: 'Residência PM',
-    loc: 'São José dos Campos, SP',
-    desc: 'Sobrado residencial com projeto completo de estrutura e fundações em concreto armado, instalações hidrossanitárias, elétrico, VDI e HVAC — todas as disciplinas coordenadas e entregues em BIM.',
-    discs: ['Estrutural','Fundações','Água fria','Esgoto','Pluvial','Elétrico','VDI','HVAC'],
-    imgs: ['images/projeto-pm-1.jpg','images/projeto-pm-2.jpg','images/projeto-pm-3.jpg','images/projeto-pm-4.jpg','images/projeto-pm-5.jpg','images/projeto-pm-6.jpg','images/projeto-pm-7.jpg']
-  },
-  {
-    nome: 'Residência AP',
-    loc: 'Jacareí, SP',
-    desc: 'Projeto completo de instalações para residência de alto padrão, com HVAC, VDI e sistema de aquecimento solar — coordenação impecável entre todas as disciplinas em BIM.',
-    discs: ['Água fria','Água quente solar','Esgoto','Pluvial','HVAC','Elétrico','VDI'],
-    imgs: ['images/projeto-alv-1.jpg','images/projeto-alv-2.jpg','images/projeto-alv-3.jpg','images/projeto-alv-4.jpg','images/projeto-alv-5.jpg','images/projeto-alv-6.jpg']
-  },
-  {
-    nome: 'Residência HT',
-    loc: 'Ubatuba, SP',
-    desc: 'Sobrado residencial em Ubatuba com projeto completo de estrutura e fundações em concreto armado, piscina de concreto armado, instalações hidrossanitárias, hidráulica da piscina, projeto elétrico e infraestrutura para ar condicionado — tudo coordenado em BIM.',
-    discs: ['Estrutural','Fundações','Piscina de concreto','Água fria','Esgoto','Pluvial','Hidro piscina','Elétrico','Infra A/C'],
-    imgs: ['images/projeto-ht-1.jpg','images/projeto-ht-2.jpg','images/projeto-ht-3.jpg','images/projeto-ht-4.jpg','images/projeto-ht-5.jpg','images/projeto-ht-6.jpg','images/projeto-ht-7.jpg','images/projeto-ht-8.jpg','images/projeto-ht-9.jpg','images/projeto-ht-10.jpg','images/projeto-ht-11.jpg']
+    nome: 'Residência AS',
+    loc: 'Ipirá, BA',
+    desc: 'Residência com projeto estrutural e fundações em concreto armado, instalações hidrossanitárias com rede de água fria pressurizada, projeto elétrico e VDI — entregues com precisão técnica em BIM.',
+    discs: ['Estrutural','Fundações','Água fria pressurizada','Esgoto','Pluvial','Elétrico','VDI'],
+    imgs: ['images/projeto-as-1.jpg','images/projeto-as-2.jpg','images/projeto-as-3.jpg','images/projeto-as-4.jpg','images/projeto-as-5.jpg','images/projeto-as-6.jpg']
   },
   {
     nome: 'Cond. Reserva Toscana — Guarita',
@@ -188,11 +154,46 @@ const projetos = [
     imgs: [], emConstrucao: true
   },
   {
-    nome: 'Residência AS',
-    loc: 'Ipirá, BA',
-    desc: 'Residência com projeto estrutural e fundações em concreto armado, instalações hidrossanitárias com rede de água fria pressurizada, projeto elétrico e VDI — entregues com precisão técnica em BIM.',
-    discs: ['Estrutural','Fundações','Água fria pressurizada','Esgoto','Pluvial','Elétrico','VDI'],
-    imgs: ['images/projeto-as-1.jpg','images/projeto-as-2.jpg','images/projeto-as-3.jpg','images/projeto-as-4.jpg','images/projeto-as-5.jpg','images/projeto-as-6.jpg']
+    nome: 'Residência JC',
+    loc: 'Faxinal dos Guedes, SC',
+    desc: 'Residência com projeto hidrossanitário completo — água fria, água quente com aquecedor elétrico, pluvial e esgoto — com infraestrutura prevista para instalação futura de boiler e placas solares. Elétrico, VDI e HVAC entregues em BIM.',
+    discs: ['Água fria','Água quente elétrica','Infra solar futura','Esgoto','Pluvial','Elétrico','VDI','HVAC'],
+    imgs: ['images/projeto-jc-1.jpg','images/projeto-jc-2.jpg','images/projeto-jc-3.jpg','images/projeto-jc-4.jpg','images/projeto-jc-5.jpg','images/projeto-jc-6.jpg','images/projeto-jc-7.jpg']
+  },
+  {
+    nome: 'Casa de Fazenda',
+    loc: 'São José dos Campos, SP',
+    desc: 'Projeto completo de sobrado residencial — da arquitetura ao projeto legal, estrutura, fundações e todas as instalações. Um dos projetos mais completos já entregues pela A12, com escopo integral em BIM.',
+    discs: ['Arquitetura','Projeto Legal','Estrutural','Fundações','Água fria','Esgoto','Pluvial','Elétrico','VDI','HVAC'],
+    imgs: ['images/projeto-cf-1.jpg','images/projeto-cf-2.jpg','images/projeto-cf-3.jpg','images/projeto-cf-4.jpg','images/projeto-cf-5.jpg','images/projeto-cf-6.jpg','images/projeto-cf-7.jpg','images/projeto-cf-8.jpg','images/projeto-cf-9.jpg','images/projeto-cf-10.jpg','images/projeto-cf-11.jpg','images/projeto-cf-12.jpg','images/projeto-cf-13.jpg','images/projeto-cf-14.jpg']
+  },
+  {
+    nome: 'Casa do Alto',
+    loc: 'São José dos Campos, SP',
+    desc: 'Projeto residencial rústico com escopo completo — arquitetura, projeto legal, fundações em concreto armado, instalações hidrossanitárias com aquecimento solar e boiler, elétrico e VDI — tudo em BIM.',
+    discs: ['Arquitetura','Projeto Legal','Fundações','Água fria','Água quente solar','Boiler','Esgoto','Pluvial','Elétrico','VDI'],
+    imgs: [], emConstrucao: true
+  },
+  {
+    nome: 'Fábrica Michelin',
+    loc: 'Guarulhos, SP',
+    desc: 'Projeto comercial/industrial para unidade da Michelin em Guarulhos — elétrico, VDI e HVAC coordenados e entregues em BIM.',
+    discs: ['Elétrico','VDI','HVAC'],
+    imgs: [], emConstrucao: true
+  },
+  {
+    nome: 'Residência AP',
+    loc: 'Jacareí, SP',
+    desc: 'Projeto completo de instalações para residência de alto padrão, com HVAC, VDI e sistema de aquecimento solar — coordenação impecável entre todas as disciplinas em BIM.',
+    discs: ['Água fria','Água quente solar','Esgoto','Pluvial','HVAC','Elétrico','VDI'],
+    imgs: ['images/projeto-alv-1.jpg','images/projeto-alv-2.jpg','images/projeto-alv-3.jpg','images/projeto-alv-4.jpg','images/projeto-alv-5.jpg','images/projeto-alv-6.jpg']
+  },
+  {
+    nome: 'Residência HT',
+    loc: 'Ubatuba, SP',
+    desc: 'Sobrado residencial em Ubatuba com projeto completo de estrutura e fundações em concreto armado, piscina de concreto armado, instalações hidrossanitárias, hidráulica da piscina, projeto elétrico e infraestrutura para ar condicionado — tudo coordenado em BIM.',
+    discs: ['Estrutural','Fundações','Piscina de concreto','Água fria','Esgoto','Pluvial','Hidro piscina','Elétrico','Infra A/C'],
+    imgs: ['images/projeto-ht-1.jpg','images/projeto-ht-2.jpg','images/projeto-ht-3.jpg','images/projeto-ht-4.jpg','images/projeto-ht-5.jpg','images/projeto-ht-6.jpg','images/projeto-ht-7.jpg','images/projeto-ht-8.jpg','images/projeto-ht-9.jpg','images/projeto-ht-10.jpg','images/projeto-ht-11.jpg']
   },
   {
     nome: 'Residência JB',
@@ -209,13 +210,6 @@ const projetos = [
     imgs: [], emConstrucao: true
   },
   {
-    nome: 'Residência VR',
-    loc: 'Jacareí, SP',
-    desc: 'Projeto residencial completo com arquitetura, projeto legal para prefeitura, estrutura e fundações em concreto armado e instalações hidrossanitárias — todas as disciplinas entregues em BIM.',
-    discs: ['Arquitetura','Projeto Legal','Estrutural','Fundações','Água fria','Esgoto','Pluvial'],
-    imgs: [], emConstrucao: true
-  },
-  {
     nome: 'Residência JV',
     loc: 'São José dos Campos, SP — Cond. Mantiqueira',
     desc: 'Residência em condomínio de alto padrão com projeto hidrossanitário completo — água fria, água quente com aquecimento solar e reserva em boiler, esgoto e pluvial — além de HVAC e VDI entregues em BIM.',
@@ -223,17 +217,24 @@ const projetos = [
     imgs: [], emConstrucao: true
   },
   {
-    nome: 'Casa do Alto',
+    nome: 'Residência PM',
     loc: 'São José dos Campos, SP',
-    desc: 'Projeto residencial rústico com escopo completo — arquitetura, projeto legal, fundações em concreto armado, instalações hidrossanitárias com aquecimento solar e boiler, elétrico e VDI — tudo em BIM.',
-    discs: ['Arquitetura','Projeto Legal','Fundações','Água fria','Água quente solar','Boiler','Esgoto','Pluvial','Elétrico','VDI'],
-    imgs: [], emConstrucao: true
+    desc: 'Sobrado residencial com projeto completo de estrutura e fundações em concreto armado, instalações hidrossanitárias, elétrico, VDI e HVAC — todas as disciplinas coordenadas e entregues em BIM.',
+    discs: ['Estrutural','Fundações','Água fria','Esgoto','Pluvial','Elétrico','VDI','HVAC'],
+    imgs: ['images/projeto-pm-1.jpg','images/projeto-pm-2.jpg','images/projeto-pm-3.jpg','images/projeto-pm-4.jpg','images/projeto-pm-5.jpg','images/projeto-pm-6.jpg','images/projeto-pm-7.jpg']
   },
   {
-    nome: 'Fábrica Michelin',
-    loc: 'Guarulhos, SP',
-    desc: 'Projeto comercial/industrial para unidade da Michelin em Guarulhos — elétrico, VDI e HVAC coordenados e entregues em BIM.',
-    discs: ['Elétrico','VDI','HVAC'],
+    nome: 'Residência VP',
+    loc: 'Paraibuna, SP — Quinta dos Lagos',
+    desc: 'Residência de alto padrão com piscina de borda infinita aquecida com hidromassagem, reaproveitamento de água da chuva, tratamento de esgoto na própria edificação e sistema solar integrado. Todo o sistema de distribuição de água fria e quente é pressurizado. Entregue em BIM sem interferências.',
+    discs: ['Elétrico','VDI','CFTV','Água fria/quente pressurizada','Solar','Piscina borda infinita','Hidromassagem','Esgoto','Pluvial','HVAC'],
+    imgs: ['images/projeto-vp-1.jpg','images/projeto-vp-2.jpg','images/projeto-vp-3.jpg','images/projeto-vp-4.jpg','images/projeto-vp-5.jpg']
+  },
+  {
+    nome: 'Residência VR',
+    loc: 'Jacareí, SP',
+    desc: 'Projeto residencial completo com arquitetura, projeto legal para prefeitura, estrutura e fundações em concreto armado e instalações hidrossanitárias — todas as disciplinas entregues em BIM.',
+    discs: ['Arquitetura','Projeto Legal','Estrutural','Fundações','Água fria','Esgoto','Pluvial'],
     imgs: [], emConstrucao: true
   },
   {
@@ -252,71 +253,86 @@ const projetos = [
   }
 ];
 
-// Renderizar todos os projetos
-document.getElementById('portGridFull').innerHTML = projetos.map(function(p, i) {
-  var thumb;
-  if (p.emConstrucao) {
-    thumb = '<div class="proj-em-construcao"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>Em breve</span></div>';
-  } else if (p.imgs && p.imgs[0]) {
-    thumb = '<img src="' + p.imgs[0] + '" alt="' + p.nome + '">';
-  } else {
-    thumb = '';
+// Extrair estado da localização
+function getEstado(loc) {
+  var map = {'BA':'Bahia','MG':'Minas Gerais','PA':'Pará','PE':'Pernambuco','RJ':'Rio de Janeiro','SC':'Santa Catarina','SP':'São Paulo'};
+  for (var uf in map) {
+    if (loc.indexOf(', ' + uf) !== -1 || loc.indexOf(map[uf]) !== -1) return map[uf];
   }
-  return '<div class="proj-card" onclick="openLightbox(' + i + ')">' +
-    '<div class="proj-thumb">' + thumb + '<span class="proj-badge">' + p.nome + '</span></div>' +
-    '<div class="proj-body">' +
-    '<div class="proj-loc">' + p.loc + '</div>' +
-    '<p class="proj-desc">' + p.desc + '</p>' +
-    '<div class="proj-discs">' + p.discs.map(function(d){ return '<span class="proj-disc">' + d + '</span>'; }).join('') + '</div>' +
-    '</div></div>';
-}).join('');
+  return 'Outros';
+}
+
+// Agrupar por estado, com imagem primeiro
+var estados = {'Bahia':[],'Minas Gerais':[],'Pará':[],'Pernambuco':[],'Rio de Janeiro':[],'Santa Catarina':[],'São Paulo':[],'Outros':[]};
+projetos.forEach(function(p, i) {
+  var est = getEstado(p.loc);
+  if (!estados[est]) estados[est] = [];
+  estados[est].push({p: p, i: i});
+});
+
+// Ordenar dentro de cada estado: com imagem primeiro
+Object.keys(estados).forEach(function(est) {
+  estados[est].sort(function(a, b) {
+    var aHas = a.p.imgs && a.p.imgs.length > 0 ? 0 : 1;
+    var bHas = b.p.imgs && b.p.imgs.length > 0 ? 0 : 1;
+    return aHas - bHas;
+  });
+});
+
+// Renderizar
+var wrap = document.getElementById('portWrap');
+var html = '';
+var ordem = ['Bahia','Minas Gerais','Pará','Pernambuco','Rio de Janeiro','Santa Catarina','São Paulo'];
+ordem.forEach(function(est) {
+  if (!estados[est] || estados[est].length === 0) return;
+  html += '<div class="estado-label">' + est + '</div><div class="port-grid-full">';
+  estados[est].forEach(function(item) {
+    var p = item.p, i = item.i;
+    var thumb;
+    if (p.emConstrucao) {
+      thumb = '<div class="proj-em-construcao"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg><span>Em breve</span></div>';
+    } else if (p.imgs && p.imgs[0]) {
+      thumb = '<img src="' + p.imgs[0] + '" alt="' + p.nome + '">';
+    } else {
+      thumb = '';
+    }
+    html += '<div class="proj-card" onclick="openLightbox(' + i + ')">' +
+      '<div class="proj-thumb">' + thumb + '<span class="proj-badge">' + p.nome + '</span></div>' +
+      '<div class="proj-body">' +
+      '<div class="proj-loc">' + p.loc + '</div>' +
+      '<p class="proj-desc">' + p.desc + '</p>' +
+      '<div class="proj-discs">' + p.discs.map(function(d){ return '<span class="proj-disc">' + d + '</span>'; }).join('') + '</div>' +
+      '</div></div>';
+  });
+  html += '</div>';
+});
+wrap.innerHTML = html;
 
 // LIGHTBOX
 var lbIdx = 0, lbImgIdx = 0, lbSlider;
-
-function openLightbox(idx) {
-  lbIdx = idx; lbImgIdx = 0;
-  renderLightbox();
-  document.getElementById('lightbox').style.display = 'flex';
-  document.body.style.overflow = 'hidden';
-}
-
+function openLightbox(idx) { lbIdx = idx; lbImgIdx = 0; renderLightbox(); document.getElementById('lightbox').style.display = 'flex'; document.body.style.overflow = 'hidden'; }
 function renderLightbox() {
   var p = projetos[lbIdx];
   document.getElementById('lbTitle').textContent = p.nome;
   document.getElementById('lbLoc').textContent = p.loc;
   document.getElementById('lbDesc').textContent = p.desc;
   document.getElementById('lbDiscs').innerHTML = p.discs.map(function(d){ return '<span style="font-size:12px;background:rgba(206,169,74,.08);border:1px solid rgba(206,169,74,.2);border-radius:100px;padding:4px 10px;color:rgba(232,237,242,.7)">' + d + '</span>'; }).join('');
-  var imgEl = document.getElementById('lbImgEl');
-  var ph = document.getElementById('lbPh');
-  if (p.imgs && p.imgs[lbImgIdx]) {
-    imgEl.src = p.imgs[lbImgIdx]; imgEl.style.display = 'block'; ph.style.display = 'none';
-  } else {
-    imgEl.style.display = 'none'; ph.style.display = 'block';
-  }
+  var imgEl = document.getElementById('lbImgEl'), ph = document.getElementById('lbPh');
+  if (p.imgs && p.imgs[lbImgIdx]) { imgEl.src = p.imgs[lbImgIdx]; imgEl.style.display = 'block'; ph.style.display = 'none'; }
+  else { imgEl.style.display = 'none'; ph.style.display = 'block'; }
   var total = p.imgs ? p.imgs.length : 0;
   document.getElementById('lbImgNav').innerHTML = total > 1 ? p.imgs.map(function(_,i){ return '<span onclick="lbGoImg(' + i + ')" style="width:8px;height:8px;border-radius:50%;background:' + (i===lbImgIdx?'var(--gold)':'rgba(255,244,222,.2)') + ';cursor:pointer;display:inline-block"></span>'; }).join('') : '';
   document.getElementById('lbPrev').onclick = function() { if(total>1){ lbImgIdx=(lbImgIdx-1+total)%total; renderLightbox(); } };
   document.getElementById('lbNext').onclick = function() { if(total>1){ lbImgIdx=(lbImgIdx+1)%total; renderLightbox(); } };
-  document.getElementById('lbPrev').style.display = total>1 ? 'flex' : 'none';
-  document.getElementById('lbNext').style.display = total>1 ? 'flex' : 'none';
+  document.getElementById('lbPrev').style.display = total>1?'flex':'none';
+  document.getElementById('lbNext').style.display = total>1?'flex':'none';
   clearInterval(lbSlider);
-  if (total > 1) lbSlider = setInterval(function(){ lbImgIdx=(lbImgIdx+1)%total; renderLightbox(); }, 3000);
+  if (total>1) lbSlider = setInterval(function(){ lbImgIdx=(lbImgIdx+1)%total; renderLightbox(); }, 3000);
 }
-
 function lbGoImg(i) { lbImgIdx = i; clearInterval(lbSlider); renderLightbox(); }
-
-document.getElementById('lbClose').onclick = function() {
-  document.getElementById('lightbox').style.display = 'none';
-  document.body.style.overflow = '';
-  clearInterval(lbSlider);
-};
-document.getElementById('lightbox').addEventListener('click', function(e) {
-  if (e.target === this) { this.style.display = 'none'; document.body.style.overflow = ''; clearInterval(lbSlider); }
-});
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') { document.getElementById('lightbox').style.display = 'none'; document.body.style.overflow = ''; clearInterval(lbSlider); }
-});
+document.getElementById('lbClose').onclick = function() { document.getElementById('lightbox').style.display='none'; document.body.style.overflow=''; clearInterval(lbSlider); };
+document.getElementById('lightbox').addEventListener('click', function(e) { if(e.target===this){ this.style.display='none'; document.body.style.overflow=''; clearInterval(lbSlider); } });
+document.addEventListener('keydown', function(e) { if(e.key==='Escape'){ document.getElementById('lightbox').style.display='none'; document.body.style.overflow=''; clearInterval(lbSlider); } });
 </script>
 </body>
 </html>
