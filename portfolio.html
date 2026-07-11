@@ -144,7 +144,7 @@ const projetos = [
     loc: 'Minas Gerais',
     desc: 'Instalações completas para academia e área administrativa do Condomínio Reserva Toscana — água fria, esgoto sanitário, pluvial, elétrico e VDI, entregues em BIM.',
     discs: ['Água fria','Esgoto','Pluvial','Elétrico','VDI'],
-    imgs: [], emConstrucao: true
+    imgs: ['images/toscana-adm-1.jpg','images/toscana-adm-2.jpg','images/toscana-adm-3.jpg','images/toscana-adm-4.jpg','images/toscana-adm-5.jpg','images/toscana-adm-6.jpg','images/toscana-adm-7.jpg','images/toscana-adm-8.jpg','images/toscana-adm-9.jpg']
   },
   {
     nome: 'Cond. Reserva Toscana — Área de Lazer',
@@ -271,10 +271,12 @@ projetos.forEach(function(p, i) {
   }
 });
 
-// Ordenar com imagem por estado alfabético
+// Ordenar com imagem por estado alfabético, depois por nome
 comImagem.sort(function(a, b) {
   if (a.est < b.est) return -1;
   if (a.est > b.est) return 1;
+  if (a.p.nome < b.p.nome) return -1;
+  if (a.p.nome > b.p.nome) return 1;
   return 0;
 });
 
